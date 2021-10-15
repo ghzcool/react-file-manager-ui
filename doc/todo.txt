@@ -1,0 +1,12 @@
++ react app
++ empty components
+! FileManager component
+- TopBar component
+- Sidebar component
+- Body component
+- Footer component
+- resize sidebar
+- connect with api
+- enabled functionality
+- custom plugins
+- rules to show plugin buttons and menus
