@@ -94,10 +94,12 @@ function FileManager(_ref) {
       await Promise.all(paths.map(path => {
         const promise = load(path);
         promise.then(list => {
-          updated[path] = list;
+          if (list !== undefined) {
+            updated[path] = list;
 
-          if (path === currentPath) {
-            setLastPath(currentPath);
+            if (path === currentPath) {
+              setLastPath(currentPath);
+            }
           }
         }).catch(console.error);
         return promise;

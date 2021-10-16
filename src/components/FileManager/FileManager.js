@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopBar from "./TopBar";
 import Footer from "./Footer";
 import MiddleArea from "./MiddleArea";
@@ -58,9 +58,11 @@ export default function FileManager({ height, getList, createDirectory, deletePa
       await Promise.all(paths.map(path => {
         const promise = load(path);
         promise.then(list => {
-          updated[path] = list;
-          if (path === currentPath) {
-            setLastPath(currentPath);
+          if (list !== undefined) {
+            updated[path] = list;
+            if (path === currentPath) {
+              setLastPath(currentPath);
+            }
           }
         }).catch(console.error);
         return promise;
