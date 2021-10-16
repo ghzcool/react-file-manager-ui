@@ -1,7 +1,7 @@
 import React from "react";
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
-export default function Footer({ structure, currentPath, selection, deletePaths, reload, rename, labels, enabledFeatures }) {
+export default function Footer({ structure, setStructure, currentPath, selection, deletePaths, reload, rename, labels, enabledFeatures }) {
   const list = structure[currentPath] || [];
   const files = list.filter(item => item.type === 1).length;
   const folders = list.filter(item => item.type === 2).length;
@@ -10,6 +10,18 @@ export default function Footer({ structure, currentPath, selection, deletePaths,
 
   const onDeletePath = () => {
     deletePaths(selection).then(reload).catch(console.error);
+    const updated = { ...structure };
+    Object.keys(updated).forEach(path => {
+      selection.forEach(item => {
+        const parts = item.split('/');
+        parts.splice(parts.length - 1, 1);
+        const parent = parts.join('/');
+        if (path.indexOf(parent) !== -1) {
+          updated[path] = undefined;
+        }
+      });
+    });
+    setStructure(updated);
   };
 
   const onRename = () => {

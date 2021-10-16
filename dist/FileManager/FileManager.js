@@ -144,6 +144,7 @@ function FileManager(_ref) {
     loading: loading
   }), /*#__PURE__*/_react.default.createElement(_Footer.default, {
     structure: structure,
+    setStructure: setStructure,
     currentPath: currentPath,
     selection: selection,
     enabledFeatures: enabledFeatures,

@@ -86,8 +86,9 @@ export default function FileManager({ height, getList, createDirectory, deletePa
         uploadFiles={uploadFiles} enabledFeatures={enabledFeatures}
         labels={labels} loading={loading}
       />
-      <Footer structure={structure} currentPath={currentPath} selection={selection} enabledFeatures={enabledFeatures}
-              labels={labels} loading={loading} deletePaths={deletePaths} reload={reload} rename={rename}/>
+      <Footer structure={structure} setStructure={setStructure} currentPath={currentPath} selection={selection}
+              enabledFeatures={enabledFeatures} labels={labels} loading={loading} deletePaths={deletePaths}
+              reload={reload} rename={rename}/>
     </div>
   );
 }
