@@ -9,19 +9,10 @@ export default function Footer({ structure, setStructure, currentPath, selection
   const fileLabel = files > 1 ? labels['fileMultiple'] : labels['fileSingle'];
 
   const onDeletePath = () => {
-    deletePaths(selection).then(reload).catch(console.error);
-    const updated = { ...structure };
-    Object.keys(updated).forEach(path => {
-      selection.forEach(item => {
-        const parts = item.split('/');
-        parts.splice(parts.length - 1, 1);
-        const parent = parts.join('/');
-        if (path.indexOf(parent) !== -1) {
-          updated[path] = undefined;
-        }
-      });
-    });
-    setStructure(updated);
+    deletePaths(selection).then(() => {
+      setStructure({});
+      reload();
+    }).catch(console.error);
   };
 
   const onRename = () => {

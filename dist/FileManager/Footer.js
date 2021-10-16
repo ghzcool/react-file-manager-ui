@@ -5,21 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Footer;
 
-require("core-js/modules/es.regexp.exec.js");
-
-require("core-js/modules/es.string.split.js");
-
 var _react = _interopRequireDefault(require("react"));
 
 var _fa = require("react-icons/fa");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function Footer(_ref) {
   let {
@@ -40,22 +30,10 @@ function Footer(_ref) {
   const fileLabel = files > 1 ? labels['fileMultiple'] : labels['fileSingle'];
 
   const onDeletePath = () => {
-    deletePaths(selection).then(reload).catch(console.error);
-
-    const updated = _objectSpread({}, structure);
-
-    Object.keys(updated).forEach(path => {
-      selection.forEach(item => {
-        const parts = item.split('/');
-        parts.splice(parts.length - 1, 1);
-        const parent = parts.join('/');
-
-        if (path.indexOf(parent) !== -1) {
-          updated[path] = undefined;
-        }
-      });
-    });
-    setStructure(updated);
+    deletePaths(selection).then(() => {
+      setStructure({});
+      reload();
+    }).catch(console.error);
   };
 
   const onRename = () => {
