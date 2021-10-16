@@ -18,39 +18,34 @@ const paths = {
 };
 
 const getList = (path) => {
-  console.log('list', path);
   return new Promise((resolve, reject) => {
     setTimeout(() => paths[path] ? resolve(paths[path]) : reject(), 100);
   });
 };
 
 const createDirectory = (path) => {
-  console.log('createDirectory', path);
   return new Promise(resolve => {
     setTimeout(resolve, 100);
   });
 };
 
 const deletePaths = (paths) => {
-  console.log('deletePaths', paths);
   return new Promise(resolve => {
     setTimeout(resolve, 100);
   });
 };
 
 const openFile = (path) => {
-  console.log('openFile', path);
+  alert('openFile ' + path);
 };
 
 const rename = (path) => {
-  console.log('rename', path);
   return new Promise(resolve => {
     setTimeout(resolve, 100);
   });
 };
 
 const uploadFiles = (path, files) => {
-  console.log('uploadFiles', path, files);
   return new Promise(resolve => {
     setTimeout(resolve, 100);
   });

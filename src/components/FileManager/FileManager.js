@@ -47,24 +47,40 @@ export default function FileManager({ height, getList, createDirectory, deletePa
     }
   }
 
-  const reload = useCallback(() => {
+  const reload = async () => {
     setLoading(true);
-    getList(currentPath).then(response => {
-      const list = response.map(item => ({ name: item.name, type: item.type === 1 ? 1 : 2 }));
-      const updated = { ...structure };
-      updated[currentPath] = list;
-      setStructure(updated);
-      setLastPath(currentPath);
+    const updated = {};
+    try {
+      const paths = Object.keys(structure);
+      if (paths.indexOf(currentPath) === -1) {
+        paths.push(currentPath);
+      }
+      await Promise.all(paths.map(path => {
+        const promise = load(path);
+        promise.then(list => {
+          updated[path] = list;
+          if (path === currentPath) {
+            setLastPath(currentPath);
+          }
+        }).catch(console.error);
+        return promise;
+      }));
       setLoading(false);
-    }).catch(error => {
-      console.error(error);
-      const updated = { ...structure };
-      updated[currentPath] = undefined;
-      setStructure(updated);
+    } catch (error) {
       setLoading(false);
       setCurrentPath(lastPath);
-    });
-  }, [currentPath]);
+    }
+    setStructure(updated);
+  };
+
+  const load = async (path) => {
+    try {
+      const response = await getList(path);
+      return response.map(item => ({ name: item.name, type: item.type === 1 ? 1 : 2 }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     reload();
