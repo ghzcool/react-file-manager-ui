@@ -54,7 +54,8 @@ function Body(_ref) {
     }, /*#__PURE__*/_react.default.createElement("div", {
       className: "Body-Item-Icon"
     }, item.type === 1 ? /*#__PURE__*/_react.default.createElement(_fa.FaRegFile, null) : /*#__PURE__*/_react.default.createElement(_fa.FaRegFolder, null)), /*#__PURE__*/_react.default.createElement("div", {
-      className: "Body-Item-Name"
+      className: "Body-Item-Name",
+      title: item.name
     }, item.name));
   })));
 }

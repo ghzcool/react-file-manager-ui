@@ -34,7 +34,7 @@ export default function Body({ structure, reload, currentPath, setCurrentPath, o
             <div className='Body-Item-Icon'>
               {item.type === 1 ? <FaRegFile/> : <FaRegFolder/>}
             </div>
-            <div className="Body-Item-Name">
+            <div className="Body-Item-Name" title={item.name}>
               {item.name}
             </div>
           </div>
