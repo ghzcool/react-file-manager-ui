@@ -31,7 +31,7 @@ function TopBar(_ref) {
   } = _ref;
   const uploadInputRef = (0, _react.useRef)(null);
 
-  const onFileSelect = event => uploadFiles(currentPath, [...event.target.files]);
+  const onFileSelect = event => uploadFiles(currentPath, [...event.target.files]).then(reload).catch(console.error);
 
   const onPathChange = path => {
     const newPath = path === '/' ? '' : path;

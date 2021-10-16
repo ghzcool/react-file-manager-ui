@@ -4,7 +4,7 @@ import { FaHome, FaLevelUpAlt, FaSyncAlt, FaUpload, FaFolderPlus } from "react-i
 export default function TopBar({ currentPath, setCurrentPath, uploadFiles, createDirectory, reload, labels, enabledFeatures }) {
 
   const uploadInputRef = useRef(null);
-  const onFileSelect = (event) => uploadFiles(currentPath, [...event.target.files]);
+  const onFileSelect = (event) => uploadFiles(currentPath, [...event.target.files]).then(reload).catch(console.error);
 
   const onPathChange = (path) => {
     const newPath = path === '/' ? '' : path;

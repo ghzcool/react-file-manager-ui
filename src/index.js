@@ -51,7 +51,9 @@ const rename = (path) => {
 
 const uploadFiles = (path, files) => {
   console.log('uploadFiles', path, files);
-  alert('upload to ' + path);
+  return new Promise(resolve => {
+    setTimeout(resolve, 100);
+  });
 };
 
 ReactDOM.render(
