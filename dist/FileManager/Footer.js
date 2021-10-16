@@ -29,7 +29,7 @@ function Footer(_ref) {
   const fileLabel = files > 1 ? labels['fileMultiple'] : labels['fileSingle'];
 
   const onDeletePath = () => {
-    deletePaths(selection.map(item => currentPath + item)).then(reload).catch(console.error);
+    deletePaths(selection).then(reload).catch(console.error);
   };
 
   const onRename = () => {
