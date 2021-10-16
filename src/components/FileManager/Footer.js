@@ -22,13 +22,13 @@ export default function Footer({ structure, currentPath, selection, deletePaths,
         {folders} {folderLabel} and {files} {fileLabel}
       </div>
       <div className='Footer-Right'>
-        {!!selection.length && enabledFeatures.indexOf('deletePaths') !== -1 &&
-        <button className="Icon-Button" type="button" onClick={() => onDeletePath()} title={labels['delete']}>
+        {selection.length === 1 && enabledFeatures.indexOf('rename') !== -1 &&
+        <button className="Icon-Button" type="button" onClick={() => onRename()} title={labels['rename']}>
           <FaEdit/>
         </button>
         }
-        {selection.length === 1 && enabledFeatures.indexOf('rename') !== -1 &&
-        <button className="Icon-Button" type="button" onClick={() => onRename()} title={labels['rename']}>
+        {!!selection.length && enabledFeatures.indexOf('deletePaths') !== -1 &&
+        <button className="Icon-Button" type="button" onClick={() => onDeletePath()} title={labels['delete']}>
           <FaTrash/>
         </button>
         }

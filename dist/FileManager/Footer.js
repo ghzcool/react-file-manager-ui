@@ -42,15 +42,15 @@ function Footer(_ref) {
     className: "Footer-Left"
   }, folders, " ", folderLabel, " and ", files, " ", fileLabel), /*#__PURE__*/_react.default.createElement("div", {
     className: "Footer-Right"
-  }, !!selection.length && enabledFeatures.indexOf('deletePaths') !== -1 && /*#__PURE__*/_react.default.createElement("button", {
-    className: "Icon-Button",
-    type: "button",
-    onClick: () => onDeletePath(),
-    title: labels['delete']
-  }, /*#__PURE__*/_react.default.createElement(_fa.FaEdit, null)), selection.length === 1 && enabledFeatures.indexOf('rename') !== -1 && /*#__PURE__*/_react.default.createElement("button", {
+  }, selection.length === 1 && enabledFeatures.indexOf('rename') !== -1 && /*#__PURE__*/_react.default.createElement("button", {
     className: "Icon-Button",
     type: "button",
     onClick: () => onRename(),
     title: labels['rename']
+  }, /*#__PURE__*/_react.default.createElement(_fa.FaEdit, null)), !!selection.length && enabledFeatures.indexOf('deletePaths') !== -1 && /*#__PURE__*/_react.default.createElement("button", {
+    className: "Icon-Button",
+    type: "button",
+    onClick: () => onDeletePath(),
+    title: labels['delete']
   }, /*#__PURE__*/_react.default.createElement(_fa.FaTrash, null))));
 }
