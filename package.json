@@ -1,6 +1,6 @@
 {
   "name": "react-file-manager-ui",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "React component for managing files and folders",
   "main": "dist/index.js",
   "devDependencies": {

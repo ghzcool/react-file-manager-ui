@@ -25,7 +25,7 @@ export default function Footer({ structure, setStructure, currentPath, selection
   };
 
   const onRename = () => {
-    rename(currentPath + selection[0]).then(reload).catch(console.error);
+    rename(selection[0]).then(reload).catch(console.error);
   };
 
   return (

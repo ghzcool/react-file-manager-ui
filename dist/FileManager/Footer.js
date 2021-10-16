@@ -59,7 +59,7 @@ function Footer(_ref) {
   };
 
   const onRename = () => {
-    rename(currentPath + selection[0]).then(reload).catch(console.error);
+    rename(selection[0]).then(reload).catch(console.error);
   };
 
   return /*#__PURE__*/_react.default.createElement("div", {
