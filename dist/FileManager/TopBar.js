@@ -31,7 +31,7 @@ function TopBar(_ref) {
   } = _ref;
   const uploadInputRef = (0, _react.useRef)(null);
 
-  const onFileSelect = event => uploadFiles(currentPath, [...event.target.files]).then(reload).catch(console.error);
+  const onFileSelect = event => uploadFiles(currentPath, [...event.target.files]).then(reload).catch(error => error && console.error(error));
 
   const onPathChange = path => {
     const newPath = path === '/' ? '' : path;
@@ -42,7 +42,7 @@ function TopBar(_ref) {
   };
 
   const onCreateDirectory = () => {
-    createDirectory(currentPath).then(reload).catch(console.error);
+    createDirectory(currentPath).then(reload).catch(error => error && console.error(error));
   };
 
   return /*#__PURE__*/_react.default.createElement("div", {

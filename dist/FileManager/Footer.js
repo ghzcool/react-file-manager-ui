@@ -33,11 +33,11 @@ function Footer(_ref) {
     deletePaths(selection).then(() => {
       setStructure({});
       reload();
-    }).catch(console.error);
+    }).catch(error => error && console.error(error));
   };
 
   const onRename = () => {
-    rename(selection[0]).then(reload).catch(console.error);
+    rename(selection[0]).then(reload).catch(error => error && console.error(error));
   };
 
   return /*#__PURE__*/_react.default.createElement("div", {

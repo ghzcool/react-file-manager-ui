@@ -12,11 +12,11 @@ export default function Footer({ structure, setStructure, currentPath, selection
     deletePaths(selection).then(() => {
       setStructure({});
       reload();
-    }).catch(console.error);
+    }).catch(error => error && console.error(error));
   };
 
   const onRename = () => {
-    rename(selection[0]).then(reload).catch(console.error);
+    rename(selection[0]).then(reload).catch(error => error && console.error(error));
   };
 
   return (
