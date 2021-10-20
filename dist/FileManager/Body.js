@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Body;
 
+require("core-js/modules/es.regexp.to-string.js");
+
 var _react = _interopRequireDefault(require("react"));
 
 var _fa = require("react-icons/fa");
@@ -19,9 +21,16 @@ function Body(_ref) {
     setCurrentPath,
     openFile,
     selection,
-    setSelection
+    setSelection,
+    rename,
+    enabledFeatures
   } = _ref;
   const list = structure[currentPath] || [];
+
+  const onRename = () => {
+    rename(selection[0]).then(reload).catch(error => error && console.error(error));
+  };
+
   return /*#__PURE__*/_react.default.createElement("div", {
     className: 'FileManager-Body',
     onClick: event => {
@@ -55,7 +64,14 @@ function Body(_ref) {
       className: "Body-Item-Icon"
     }, item.type === 1 ? /*#__PURE__*/_react.default.createElement(_fa.FaRegFile, null) : /*#__PURE__*/_react.default.createElement(_fa.FaRegFolder, null)), /*#__PURE__*/_react.default.createElement("div", {
       className: "Body-Item-Name",
-      title: item.name
+      title: item.name,
+      onClick: () => {
+        const range = window.getSelection();
+
+        if (selection[0] === path && enabledFeatures.indexOf('rename') !== -1 && !range.toString().length) {
+          onRename();
+        }
+      }
     }, item.name));
   })));
 }

@@ -1,8 +1,13 @@
 import React from "react";
 import { FaRegFile, FaRegFolder } from "react-icons/fa";
 
-export default function Body({ structure, reload, currentPath, setCurrentPath, openFile, selection, setSelection }) {
+export default function Body({ structure, reload, currentPath, setCurrentPath, openFile, selection, setSelection, rename, enabledFeatures }) {
   const list = structure[currentPath] || [];
+
+  const onRename = () => {
+    rename(selection[0]).then(reload).catch(error => error && console.error(error));
+  };
+
   return (
     <div className={'FileManager-Body'} onClick={event => {
       event.stopPropagation();
@@ -34,7 +39,12 @@ export default function Body({ structure, reload, currentPath, setCurrentPath, o
             <div className='Body-Item-Icon'>
               {item.type === 1 ? <FaRegFile/> : <FaRegFolder/>}
             </div>
-            <div className="Body-Item-Name" title={item.name}>
+            <div className="Body-Item-Name" title={item.name} onClick={() => {
+              const range = window.getSelection();
+              if (selection[0] === path && enabledFeatures.indexOf('rename') !== -1 && !range.toString().length) {
+                onRename();
+              }
+            }}>
               {item.name}
             </div>
           </div>

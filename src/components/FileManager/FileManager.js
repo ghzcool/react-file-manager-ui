@@ -50,8 +50,16 @@ export default function FileManager({ height, getList, createDirectory, deletePa
   const reload = async () => {
     setLoading(true);
     const updated = {};
+    const notChanged = {};
     try {
-      const paths = Object.keys(structure);
+      const paths = Object.keys(structure).filter(path => {
+        if (currentPath.indexOf(path) === 0 || path.indexOf(currentPath) === 0) {
+          return true;
+        } else {
+          notChanged[path] = structure[path];
+          return false;
+        }
+      });
       if (paths.indexOf(currentPath) === -1) {
         paths.push(currentPath);
       }
@@ -72,7 +80,20 @@ export default function FileManager({ height, getList, createDirectory, deletePa
       setLoading(false);
       setCurrentPath(lastPath);
     }
-    setStructure(updated);
+    const processed = { ...notChanged, ...updated };
+    const ordered = {};
+    Object.keys(processed).sort((a, b) => {
+      if (a > b) {
+        return 1;
+      }
+      if (a < b) {
+        return -1;
+      }
+      return 0;
+    }).forEach(path => {
+      ordered[path] = processed[path];
+    });
+    setStructure(ordered);
   };
 
   const load = async (path) => {
@@ -102,7 +123,7 @@ export default function FileManager({ height, getList, createDirectory, deletePa
         openFile={openFile} reload={reload}
         selection={selection} setSelection={setSelection}
         uploadFiles={uploadFiles} enabledFeatures={enabledFeatures}
-        labels={labels} loading={loading}
+        labels={labels} loading={loading} rename={rename}
       />
       <Footer structure={structure} setStructure={setStructure} currentPath={currentPath} selection={selection}
               enabledFeatures={enabledFeatures} labels={labels} loading={loading} deletePaths={deletePaths}

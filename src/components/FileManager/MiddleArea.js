@@ -2,7 +2,7 @@ import React from "react";
 import SideBar from "./SideBar";
 import Body from "./Body";
 
-export default function MiddleArea({ collapsed, setCollapsed, structure, currentPath, setCurrentPath, openFile, reload, selection, setSelection, labels, loading, enabledFeatures }) {
+export default function MiddleArea({ collapsed, setCollapsed, structure, currentPath, setCurrentPath, openFile, reload, rename, selection, setSelection, labels, loading, enabledFeatures }) {
   return (
     <div className='FileManager-MiddleArea'>
       <SideBar
@@ -11,7 +11,7 @@ export default function MiddleArea({ collapsed, setCollapsed, structure, current
         collapsed={collapsed} setCollapsed={setCollapsed} enabledFeatures={enabledFeatures}
       />
       <Body
-        structure={structure}
+        structure={structure} rename={rename}
         currentPath={currentPath} setCurrentPath={setCurrentPath}
         openFile={openFile} reload={reload} labels={labels} loading={loading}
         selection={selection} setSelection={setSelection} enabledFeatures={enabledFeatures}

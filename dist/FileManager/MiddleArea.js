@@ -22,6 +22,7 @@ function MiddleArea(_ref) {
     setCurrentPath,
     openFile,
     reload,
+    rename,
     selection,
     setSelection,
     labels,
@@ -41,6 +42,7 @@ function MiddleArea(_ref) {
     enabledFeatures: enabledFeatures
   }), /*#__PURE__*/_react.default.createElement(_Body.default, {
     structure: structure,
+    rename: rename,
     currentPath: currentPath,
     setCurrentPath: setCurrentPath,
     openFile: openFile,
