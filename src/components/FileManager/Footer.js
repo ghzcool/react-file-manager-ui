@@ -1,12 +1,47 @@
 import React from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaDownload } from "react-icons/fa";
 
-export default function Footer({ structure, setStructure, currentPath, selection, deletePaths, reload, rename, labels, enabledFeatures }) {
+import { humanReadableByteCount, stripLeadingDirectories } from './Utils';
+
+export default function Footer({ structure, setStructure, currentPath, selection, deletePaths, reload, rename, labels, enabledFeatures, getDownloadLink, getFileSizeBytes, getFileChangedDate }) {
   const list = structure[currentPath] || [];
-  const files = list.filter(item => item.type === 1).length;
-  const folders = list.filter(item => item.type === 2).length;
-  const folderLabel = folders > 1 ? labels['folderMultiple'] : labels['folderSingle'];
-  const fileLabel = files > 1 ? labels['fileMultiple'] : labels['fileSingle'];
+  const footerText = getFooterText();
+
+  function getFooterText () {
+    const files = list.filter(item => item.type === 1).length;
+    const folders = list.filter(item => item.type === 2).length;
+    const folderLabel = folders > 1 ? labels['folderMultiple'] : labels['folderSingle'];
+    const fileLabel = files > 1 ? labels['fileMultiple'] : labels['fileSingle'];
+    let text = `${folders} ${folderLabel} and ${files} ${fileLabel}`;
+
+    const selectionItem = selection[0];
+    if (selectionItem) {
+      let selectionBytes;
+      if (enabledFeatures.indexOf('getFileSizeBytes') !== -1) {
+        selectionBytes = humanReadableByteCount(getFileSizeBytes(selectionItem.item));
+      }
+
+      let selectionDate;
+      if (enabledFeatures.indexOf('getFileChangedDate') !== -1) {
+        selectionDate = new Date(getFileChangedDate(selectionItem.item)).toLocaleString();
+      }
+
+      text += ` - ${stripLeadingDirectories(selectionItem)}: `;
+
+      if (selectionBytes) {
+        text += `${selectionBytes}`;
+      }
+
+      if (selectionDate) {
+        if (selectionBytes) {
+          text += ', ';
+        }
+        text += ` ${labels['lastChangedLabel']} ${selectionDate}`;
+      }
+    }
+
+    return text;
+  }
 
   const onDeletePath = () => {
     deletePaths(selection).then(() => {
@@ -22,7 +57,7 @@ export default function Footer({ structure, setStructure, currentPath, selection
   return (
     <div className="FileManager-Footer">
       <div className='Footer-Left'>
-        {folders} {folderLabel} and {files} {fileLabel}
+        {footerText}
       </div>
       <div className='Footer-Right'>
         {selection.length === 1 && enabledFeatures.indexOf('rename') !== -1 &&
@@ -34,6 +69,12 @@ export default function Footer({ structure, setStructure, currentPath, selection
         <button className="Icon-Button" type="button" onClick={() => onDeletePath()} title={labels['delete']}>
           <FaTrash/>
         </button>
+        }
+        {!!selection.length && enabledFeatures.indexOf('getDownloadLink') !== -1 &&
+        <a href={getDownloadLink(selection)} download={stripLeadingDirectories(selection[0])} className="Icon-Button" type="button"
+            title={labels['download']}>
+          <FaDownload/>
+        </a>
         }
       </div>
     </div>

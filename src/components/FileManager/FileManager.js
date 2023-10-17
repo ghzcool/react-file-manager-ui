@@ -17,10 +17,11 @@ const defaultLabels = {
   'download': 'Download',
   'delete': 'Delete',
   'rename': 'Rename',
-  'createDirectory': 'Create directory'
+  'createDirectory': 'Create directory',
+  'lastChangedLabel': 'last changed at'
 };
 
-export default function FileManager({ height, getList, createDirectory, deletePaths, openFile, uploadFiles, rename, translations, features }) {
+export default function FileManager({ height, getList, createDirectory, deletePaths, openFile, uploadFiles, rename, translations, features, getDownloadLink, getFileChangedDate, getFileSizeBytes }) {
 
   const [collapsed, setCollapsed] = useState({});
   const [structure, setStructure] = useState({});
@@ -44,6 +45,15 @@ export default function FileManager({ height, getList, createDirectory, deletePa
     }
     if (rename) {
       enabledFeatures.push('rename');
+    }
+    if (getDownloadLink) {
+      enabledFeatures.push('getDownloadLink');
+    }
+    if (getFileChangedDate) {
+      enabledFeatures.push('getFileChangedDate');
+    }
+    if (getFileSizeBytes) {
+      enabledFeatures.push('getFileSizeBytes');
     }
   }
 
@@ -127,7 +137,8 @@ export default function FileManager({ height, getList, createDirectory, deletePa
       />
       <Footer structure={structure} setStructure={setStructure} currentPath={currentPath} selection={selection}
               enabledFeatures={enabledFeatures} labels={labels} loading={loading} deletePaths={deletePaths}
-              reload={reload} rename={rename}/>
+              reload={reload} rename={rename} getDownloadLink={getDownloadLink}
+              getFileSizeBytes={getFileSizeBytes} getFileChangedDate={getFileChangedDate} />
     </div>
   );
 }
