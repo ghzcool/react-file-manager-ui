@@ -160,8 +160,10 @@
 }
 
 .FileManager-Footer .Footer-Right {
+    display: flex;
     flex: auto;
-    text-align: right;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
 }
 
 .Footer-Right button {
@@ -180,4 +182,27 @@
     width: 16px;
     height: 16px;
     transform: translateY(2px);
+}
+
+.Footer-Right a.Icon-Button {
+    display: block;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    line-height: 28px;
+    margin-left: 4px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px -4px rgba(0, 0, 0, 0.5);
+}
+
+.Footer-Right a svg {
+    width: 16px;
+    height: 16px;
+    transform: translateY(2px);
+}
+
+a.Icon-Button, a.Icon-Button:active, a.Icon-Button:hover, a.Icon-Button:link, a.Icon-Button:visited {
+    color: #000000;
 }

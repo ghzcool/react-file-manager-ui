@@ -46,7 +46,8 @@ const defaultLabels = {
   'download': 'Download',
   'delete': 'Delete',
   'rename': 'Rename',
-  'createDirectory': 'Create directory'
+  'createDirectory': 'Create directory',
+  'lastChangedLabel': 'last changed at'
 };
 
 function FileManager(_ref) {
@@ -59,7 +60,10 @@ function FileManager(_ref) {
     uploadFiles,
     rename,
     translations,
-    features
+    features,
+    getDownloadLink,
+    getFileChangedDate,
+    getFileSizeBytes
   } = _ref;
   const [collapsed, setCollapsed] = (0, _react.useState)({});
   const [structure, setStructure] = (0, _react.useState)({});
@@ -85,6 +89,18 @@ function FileManager(_ref) {
 
     if (rename) {
       enabledFeatures.push('rename');
+    }
+
+    if (getDownloadLink) {
+      enabledFeatures.push('getDownloadLink');
+    }
+
+    if (getFileChangedDate) {
+      enabledFeatures.push('getFileChangedDate');
+    }
+
+    if (getFileSizeBytes) {
+      enabledFeatures.push('getFileSizeBytes');
     }
   }
 
@@ -201,6 +217,9 @@ function FileManager(_ref) {
     loading: loading,
     deletePaths: deletePaths,
     reload: reload,
-    rename: rename
+    rename: rename,
+    getDownloadLink: getDownloadLink,
+    getFileSizeBytes: getFileSizeBytes,
+    getFileChangedDate: getFileChangedDate
   }));
 }

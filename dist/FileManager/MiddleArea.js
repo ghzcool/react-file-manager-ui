@@ -27,7 +27,9 @@ function MiddleArea(_ref) {
     setSelection,
     labels,
     loading,
-    enabledFeatures
+    enabledFeatures,
+    selectionToPaths,
+    selectionChanged
   } = _ref;
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "FileManager-MiddleArea"
