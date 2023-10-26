@@ -43,13 +43,13 @@ function Footer(_ref) {
       let selectionBytes;
 
       if (enabledFeatures.indexOf('getFileSizeBytes') !== -1) {
-        selectionBytes = (0, _Utils.humanReadableByteCount)(getFileSizeBytes(selectionItem.item));
+        selectionBytes = (0, _Utils.humanReadableByteCount)(getFileSizeBytes(selectionItem));
       }
 
       let selectionDate;
 
       if (enabledFeatures.indexOf('getFileChangedDate') !== -1) {
-        selectionDate = new Date(getFileChangedDate(selectionItem.item)).toLocaleString();
+        selectionDate = new Date(getFileChangedDate(selectionItem)).toLocaleString();
       }
 
       text += " - ".concat((0, _Utils.stripLeadingDirectories)(selectionItem), ": ");
