@@ -1,11 +1,29 @@
 import React, { useRef } from "react";
 import { FaHome, FaLevelUpAlt, FaSyncAlt, FaUpload, FaFolderPlus } from "react-icons/fa";
 
-export default function TopBar({ currentPath, setCurrentPath, uploadFiles, createDirectory, reload, labels, enabledFeatures }) {
+export default function TopBar({ currentPath, setCurrentPath, uploadFiles, createDirectory, reload, labels, enabledFeatures, getUploadLink }) {
 
   const uploadInputRef = useRef(null);
-  const onFileSelect = (event) => uploadFiles(currentPath, [...event.target.files]).then(reload)
-    .catch(error => error && console.error(error));
+  const onFileSelect = (event) => {
+    uploadFiles(currentPath, [...event.target.files])
+      .then(() => {
+        if (enabledFeatures.indexOf('getUploadLink')) {
+          return [...event.target.files].map(file => {
+            const form = new FormData();
+            form.append('file', file);
+            form.append('path', currentPath);
+
+            const req =  new Request(getUploadLink(currentPath, file.name), {
+              method: 'POST',
+              body: form
+            });
+            return fetch(req);
+          });
+        }
+      })
+      .then(reload)
+      .catch(error => error && console.error(error));
+  };
 
   const onPathChange = (path) => {
     const newPath = path === '/' ? '' : path;

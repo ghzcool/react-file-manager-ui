@@ -62,6 +62,7 @@ function FileManager(_ref) {
     translations,
     features,
     getDownloadLink,
+    getUploadLink,
     getFileChangedDate,
     getFileSizeBytes
   } = _ref;
@@ -89,6 +90,10 @@ function FileManager(_ref) {
 
     if (rename) {
       enabledFeatures.push('rename');
+    }
+
+    if (getUploadLink) {
+      enabledFeatures.push('getUploadLink');
     }
 
     if (getDownloadLink) {
@@ -190,7 +195,8 @@ function FileManager(_ref) {
     labels: labels,
     loading: loading,
     reload: reload,
-    enabledFeatures: enabledFeatures
+    enabledFeatures: enabledFeatures,
+    getUploadLink: getUploadLink
   }), /*#__PURE__*/_react.default.createElement(_MiddleArea.default, {
     collapsed: collapsed,
     setCollapsed: setCollapsed,

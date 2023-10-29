@@ -21,7 +21,7 @@ const defaultLabels = {
   'lastChangedLabel': 'last changed at'
 };
 
-export default function FileManager({ height, getList, createDirectory, deletePaths, openFile, uploadFiles, rename, translations, features, getDownloadLink, getFileChangedDate, getFileSizeBytes }) {
+export default function FileManager({ height, getList, createDirectory, deletePaths, openFile, uploadFiles, rename, translations, features, getDownloadLink, getUploadLink, getFileChangedDate, getFileSizeBytes }) {
 
   const [collapsed, setCollapsed] = useState({});
   const [structure, setStructure] = useState({});
@@ -45,6 +45,9 @@ export default function FileManager({ height, getList, createDirectory, deletePa
     }
     if (rename) {
       enabledFeatures.push('rename');
+    }
+    if (getUploadLink) {
+      enabledFeatures.push('getUploadLink');
     }
     if (getDownloadLink) {
       enabledFeatures.push('getDownloadLink');
@@ -125,6 +128,7 @@ export default function FileManager({ height, getList, createDirectory, deletePa
       <TopBar
         currentPath={currentPath} setCurrentPath={setCurrentPath} createDirectory={createDirectory}
         uploadFiles={uploadFiles} labels={labels} loading={loading} reload={reload} enabledFeatures={enabledFeatures}
+        getUploadLink={getUploadLink}
       />
       <MiddleArea
         collapsed={collapsed} setCollapsed={setCollapsed}

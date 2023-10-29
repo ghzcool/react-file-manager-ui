@@ -7,6 +7,8 @@ exports.default = TopBar;
 
 require("core-js/modules/web.dom-collections.iterator.js");
 
+require("core-js/modules/es.promise.js");
+
 require("core-js/modules/es.regexp.exec.js");
 
 require("core-js/modules/es.string.split.js");
@@ -27,11 +29,27 @@ function TopBar(_ref) {
     createDirectory,
     reload,
     labels,
-    enabledFeatures
+    enabledFeatures,
+    getUploadLink
   } = _ref;
   const uploadInputRef = (0, _react.useRef)(null);
 
-  const onFileSelect = event => uploadFiles(currentPath, [...event.target.files]).then(reload).catch(error => error && console.error(error));
+  const onFileSelect = event => {
+    uploadFiles(currentPath, [...event.target.files]).then(() => {
+      if (enabledFeatures.indexOf('getUploadLink')) {
+        return [...event.target.files].map(file => {
+          const form = new FormData();
+          form.append('file', file);
+          form.append('path', currentPath);
+          const req = new Request(getUploadLink(currentPath, file.name), {
+            method: 'POST',
+            body: form
+          });
+          return fetch(req);
+        });
+      }
+    }).then(reload).catch(error => error && console.error(error));
+  };
 
   const onPathChange = path => {
     const newPath = path === '/' ? '' : path;
