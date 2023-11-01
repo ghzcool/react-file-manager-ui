@@ -27,12 +27,12 @@ export default function Footer({ structure, setStructure, currentPath, selection
     if (selectionItem) {
       let selectionBytes;
       if (enabledFeatures.indexOf('getFileSizeBytes') !== -1) {
-        selectionBytes = humanReadableByteCount(getFileSizeBytes(selectionItem.item));
+        selectionBytes = humanReadableByteCount(getFileSizeBytes(selectionItem));
       }
 
       let selectionDate;
       if (enabledFeatures.indexOf('getFileChangedDate') !== -1) {
-        selectionDate = new Date(getFileChangedDate(selectionItem.item)).toLocaleString();
+        selectionDate = new Date(getFileChangedDate(selectionItem)).toLocaleString();
       }
 
       text += ` - ${stripLeadingDirectories(selectionItem)}: `;
