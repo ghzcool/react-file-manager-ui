@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash, FaDownload } from "react-icons/fa";
 
 import { humanReadableByteCount, stripLeadingDirectories } from './Utils';
 
 export default function Footer({ structure, setStructure, currentPath, selection, deletePaths, reload, rename, labels, enabledFeatures, getDownloadLink, getFileSizeBytes, getFileChangedDate }) {
+  const [downloadLink, setDowloadLink] = useState('');
   const list = structure[currentPath] || [];
   const footerText = getFooterText();
+
+  useEffect(() => {
+    if (selection.length) {
+      getDownloadLink(selection).then(link => {
+        setDowloadLink(link);
+      }).catch(error => error && console.error(error));;
+    }
+  }, [selection]);
 
   function getFooterText () {
     const files = list.filter(item => item.type === 1).length;
@@ -71,7 +80,7 @@ export default function Footer({ structure, setStructure, currentPath, selection
         </button>
         }
         {!!selection.length && enabledFeatures.indexOf('getDownloadLink') !== -1 &&
-        <a href={getDownloadLink(selection)} download={stripLeadingDirectories(selection[0])} className="Icon-Button" type="button"
+        <a href={downloadLink} download={stripLeadingDirectories(selection[0])} className="Icon-Button" type="button"
             title={labels['download']}>
           <FaDownload/>
         </a>
