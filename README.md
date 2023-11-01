@@ -63,7 +63,7 @@ where type 1 is file and type 2 is folder
 
 ## getDownloadLink
 
-**getDownloadLink**  will receive current path and should return a link for downloading the file represented by that path
+**getDownloadLink**  will receive current path and should return a promise resolving to a link for downloading the file represented by that path
 
 ## getFileSizeBytes
 
