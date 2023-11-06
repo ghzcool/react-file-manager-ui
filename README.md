@@ -13,6 +13,9 @@ Usage:
     openFile={openFile}
     uploadFiles={uploadFiles}
     rename={rename}
+    getDownloadLink={getDownloadLink}
+    getFileSizeBytes={getFileSizeBytes}
+    getFileChangedDate={getFileChangedDate}
     features={['createDirectory', 'uploadFiles', 'deletePaths', 'rename']}
 />
 ```
@@ -57,3 +60,15 @@ where type 1 is file and type 2 is folder
 ## openFile
 
 **openFile**  will receive path
+
+## getDownloadLink
+
+**getDownloadLink**  will receive current path and should return a link for downloading the file represented by that path
+
+## getFileSizeBytes
+
+**getFileSizeBytes**  will receive current path and should return its size in bytes if applicable
+
+## getFileChangedDate
+
+**getFileChangedDate**  will receive current path and should return its last modification date if applicable
